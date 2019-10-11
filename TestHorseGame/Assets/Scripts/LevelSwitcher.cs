@@ -41,7 +41,7 @@ public class LevelSwitcher : MonoBehaviour
         FiveClick();
     }
 
-    private void Update() {
+    private void LateUpdate() {
         isMoving = _pl.GetIsMoving();
     }
 

@@ -15,9 +15,9 @@ public class PlayerMoving : MonoBehaviour
 
     void Start()
     {
-        nine_field = GameObject.FindGameObjectWithTag("NineField");
-        seven_field = GameObject.FindGameObjectWithTag("SevenField");
-        five_field = GameObject.FindGameObjectWithTag("FiveField");
+        // nine_field = GameObject.FindGameObjectWithTag("NineField");
+        // seven_field = GameObject.FindGameObjectWithTag("SevenField");
+        // five_field = GameObject.FindGameObjectWithTag("FiveField");
         currentPos = transform.position;
         fieldY = new Vector2(Screen.height/2+Screen.width/2, Screen.height/2-Screen.width/2);
         startPos = transform.position;
