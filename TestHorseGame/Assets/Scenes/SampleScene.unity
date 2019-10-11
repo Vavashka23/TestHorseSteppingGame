@@ -508,6 +508,7 @@ MonoBehaviour:
   nine_field: {fileID: 0}
   seven_field: {fileID: 0}
   five_field: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &816314379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,6 +1329,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 5x5
       objectReference: {fileID: 0}
+    - target: {fileID: 1610445297164998792, guid: 4c0b5f20c5ba50943a2aa9cab5583dd5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1610445297164998795, guid: 4c0b5f20c5ba50943a2aa9cab5583dd5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1639,7 +1645,7 @@ PrefabInstance:
     - target: {fileID: 6891040649187117579, guid: 593ee789d5c61ad40b750318eb96f8ee,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 6891040649187117579, guid: 593ee789d5c61ad40b750318eb96f8ee,
         type: 3}
@@ -1675,6 +1681,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891040649187117579, guid: 593ee789d5c61ad40b750318eb96f8ee,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891040649187117579, guid: 593ee789d5c61ad40b750318eb96f8ee,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 593ee789d5c61ad40b750318eb96f8ee, type: 3}
