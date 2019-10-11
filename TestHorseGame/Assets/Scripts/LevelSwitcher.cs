@@ -9,6 +9,24 @@ public class LevelSwitcher : MonoBehaviour
     public GameObject player;
     private Vector4 posFive, posSeven, posNine;
     private int level = 5;
+    private bool isMoving = false;
+    public PlayerMoving _pl;
+
+    public Vector2 GetStartPos(int _level)
+    {
+        switch (_level)
+        {
+            case 5:
+            return new Vector2(posFive.x, posFive.y);
+            case 7:
+            return new Vector2(posSeven.x, posSeven.y);
+            case 9:
+            return new Vector2(posNine.x, posNine.y);
+            default:
+            break;
+        }
+        return new Vector2(posFive.x, posFive.y);
+    }
 
 
     void Start()
@@ -23,33 +41,46 @@ public class LevelSwitcher : MonoBehaviour
         FiveClick();
     }
 
+    private void Update() {
+        isMoving = _pl.GetIsMoving();
+    }
+
     public void NineClick()
     {
-        nine_field.SetActive(true);
-        seven_field.SetActive(false);
-        five_field.SetActive(false);
-        level = 9;
-        player.transform.position = new Vector2(posNine.x, posNine.y);
-        player.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+        if(!isMoving)
+        {
+            nine_field.SetActive(true);
+            seven_field.SetActive(false);
+            five_field.SetActive(false);
+            level = 9;
+            player.transform.position = new Vector2(posNine.x, posNine.y);
+            player.transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+        }
     }
 
     public void SevenClick()
     {
-        nine_field.SetActive(false);
-        seven_field.SetActive(true);
-        five_field.SetActive(false);
-        level = 7;
-        player.transform.position = new Vector2(posSeven.x, posSeven.y);
-        player.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        if(!isMoving)
+        {
+            nine_field.SetActive(false);
+            seven_field.SetActive(true);
+            five_field.SetActive(false);
+            level = 7;
+            player.transform.position = new Vector2(posSeven.x, posSeven.y);
+            player.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        }
     }
 
     public void FiveClick()
     {
-        nine_field.SetActive(false);
-        seven_field.SetActive(false);
-        five_field.SetActive(true);
-        level = 5;
-        player.transform.position = new Vector2(posFive.x, posFive.y);
-        player.transform.localScale = new Vector3(1f, 1f, 1f);
+        if(!isMoving)
+        {
+            nine_field.SetActive(false);
+            seven_field.SetActive(false);
+            five_field.SetActive(true);
+            level = 5;
+            player.transform.position = new Vector2(posFive.x, posFive.y);
+            player.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
     }
 }
