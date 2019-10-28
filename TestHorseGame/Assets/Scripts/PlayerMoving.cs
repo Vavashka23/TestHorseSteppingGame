@@ -10,7 +10,7 @@ public class PlayerMoving : MonoBehaviour
     private static bool isMoving;
     private Vector2 currentPos, targetPos, fieldY, moveXY, startPos;
     private Vector4 currentFied;
-    private float speed = 250f;
+    private float speed = Screen.width/2.5f;
     public LevelSwitcher levelSwitcher;
 
     void Start()
@@ -20,6 +20,7 @@ public class PlayerMoving : MonoBehaviour
         // five_field = GameObject.FindGameObjectWithTag("FiveField");
         currentPos = transform.position;
         fieldY = new Vector2(Screen.height/2+Screen.width/2, Screen.height/2-Screen.width/2);
+        Debug.Log("field - " + fieldY);
         startPos = transform.position;
         isMoving = false;
     }
@@ -50,12 +51,16 @@ public class PlayerMoving : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !isMoving) {
             targetPos = Input.mousePosition;
+            Debug.Log("Mouse - " + targetPos);
             float cellBoard = Screen.width/(2*level);
             currentFied = new Vector4(currentPos.x - cellBoard, currentPos.x + cellBoard, currentPos.y + cellBoard, currentPos.y - cellBoard); // cell borders
-            if(targetPos.y < fieldY.x && targetPos.y > fieldY.y && (targetPos.x > currentFied.y || targetPos.x < currentFied.x) && (targetPos.y > currentFied.z || targetPos.y < currentFied.w))
+
+            if(targetPos.y < fieldY.x && targetPos.y > fieldY.y && ((targetPos.x > currentFied.y || targetPos.x < currentFied.x) || (targetPos.y > currentFied.z || targetPos.y < currentFied.w)))
             {
                 moveXY.x = (float)(cellBoard*2*Math.Truncate(targetPos.x/(cellBoard*2)))+startPos.x;
-                moveXY.y = (float)(cellBoard*2*Math.Truncate((targetPos.y-Screen.width/2)/(cellBoard*2)))+(Screen.height - startPos.y);
+                moveXY.y = (float)(cellBoard*2*Math.Truncate((targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2)))+(Screen.height - startPos.y);
+                Debug.Log(moveXY);
+                Debug.Log(Math.Truncate((targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2)) +"kk"+ (targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2));
                 isMoving = true;
                 StartCoroutine(MoveCoroutineX(moveXY.x));
             }

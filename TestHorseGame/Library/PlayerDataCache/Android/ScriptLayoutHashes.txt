@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Games/ForCustomers2/TestHorseGame/test.apk
+D:/Games/ForCustomers2/TestHorseGame/test_v_2.apk
 SceneListBegin?
 Assets/Scenes/SampleScene.unity
 SceneListEnd?
