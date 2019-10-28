@@ -12,15 +12,13 @@ public class PlayerMoving : MonoBehaviour
     private Vector4 currentFied;
     private float speed = Screen.width/2.5f;
     public LevelSwitcher levelSwitcher;
+    private List<Vector2> movingList= new List<Vector2>();
 
     void Start()
     {
-        // nine_field = GameObject.FindGameObjectWithTag("NineField");
-        // seven_field = GameObject.FindGameObjectWithTag("SevenField");
-        // five_field = GameObject.FindGameObjectWithTag("FiveField");
         currentPos = transform.position;
         fieldY = new Vector2(Screen.height/2+Screen.width/2, Screen.height/2-Screen.width/2);
-        Debug.Log("field - " + fieldY);
+        // Debug.Log("field - " + fieldY);
         startPos = transform.position;
         isMoving = false;
     }
@@ -49,9 +47,9 @@ public class PlayerMoving : MonoBehaviour
             level = 9;
         }
 
-        if (Input.GetMouseButtonDown(0) && !isMoving) {
+        if (Input.GetMouseButtonDown(0)) {
             targetPos = Input.mousePosition;
-            Debug.Log("Mouse - " + targetPos);
+            // Debug.Log("Mouse - " + targetPos);
             float cellBoard = Screen.width/(2*level);
             currentFied = new Vector4(currentPos.x - cellBoard, currentPos.x + cellBoard, currentPos.y + cellBoard, currentPos.y - cellBoard); // cell borders
 
@@ -59,11 +57,34 @@ public class PlayerMoving : MonoBehaviour
             {
                 moveXY.x = (float)(cellBoard*2*Math.Truncate(targetPos.x/(cellBoard*2)))+startPos.x;
                 moveXY.y = (float)(cellBoard*2*Math.Truncate((targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2)))+(Screen.height - startPos.y);
-                Debug.Log(moveXY);
-                Debug.Log(Math.Truncate((targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2)) +"kk"+ (targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2));
-                isMoving = true;
-                StartCoroutine(MoveCoroutineX(moveXY.x));
+                // Debug.Log(moveXY);
+                // Debug.Log(Math.Truncate((targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2)) +"kk"+ (targetPos.y-(Screen.height - Screen.width)/2)/(cellBoard*2));
+                if(movingList.Count == 0)
+                {
+                    movingList.Add(moveXY);
+                }else {
+                    if(movingList[movingList.Count-1] != moveXY)
+                    {
+                        movingList.Add(moveXY);
+                    }
+                }
+                // foreach(Vector2 vec in movingList)
+                // {
+                //     Debug.Log(vec);
+                // }
+                // Debug.Log("END of LIST");
+                if(!isMoving){
+                    isMoving = true;
+                    StartCoroutine(MoveCoroutineX(movingList[0].x));
+                }
             }
+        }
+        if(movingList.Count != 0)
+        {
+            if(!isMoving){
+                    isMoving = true;
+                    StartCoroutine(MoveCoroutineX(movingList[0].x));
+                }
         }
     }
     
@@ -71,11 +92,11 @@ public class PlayerMoving : MonoBehaviour
     {
         while (transform.position.x != moveTo)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveXY.x, transform.position.y), speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(movingList[0].x, transform.position.y), speed * Time.deltaTime);
             yield return null;
         }
 
-        StartCoroutine(MoveCoroutineY(moveXY.y));
+        StartCoroutine(MoveCoroutineY(movingList[0].y));
 
     }
     
@@ -83,9 +104,10 @@ public class PlayerMoving : MonoBehaviour
     {
         while (transform.position.y != moveTo)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, moveXY.y), speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, movingList[0].y), speed * Time.deltaTime);
             yield return null;
         }
+        movingList.RemoveAt(0);
         isMoving = false;
     }
 }
